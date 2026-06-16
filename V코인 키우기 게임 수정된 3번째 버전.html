@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>V코인 키우기 Ver.3</title>
+
+<style>
+
+body{
+    text-align:center;
+    font-family:sans-serif;
+    background:#f5f5f5;
+    padding:15px;
+}
+
+h1{
+    color:gold;
+}
+
+#coinBtn{
+    width:90%;
+    max-width:450px;
+    min-height:120px;
+    font-size:30px;
+    border:none;
+    border-radius:20px;
+    margin:10px;
+}
+
+button{
+    padding:15px;
+    margin:5px;
+    font-size:18px;
+    border-radius:10px;
+}
+
+#stats{
+    font-size:22px;
+    margin:20px;
+}
+
+progress{
+    width:90%;
+    max-width:400px;
+    height:30px;
+}
+
+#shop{
+    margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🪙 V코인 키우기</h1>
+
+<div id="stats">
+
+코인 :
+<span id="coin">0</span>
+
+<br>
+
+레벨 :
+<span id="level">1</span>
+
+<br><br>
+
+경험치
+
+<br>
+
+<progress id="expBar" value="0" max="10"></progress>
+
+<br>
+
+<span id="expText">0 / 10</span>
+
+</div>
+
+<button id="coinBtn" onclick="mineCoin()">
+🪙 V코인 획득
+</button>
+
+<p id="message"></p>
+
+<div id="shop">
+
+<h2>🏪 상점</h2>
+
+<button onclick="buyPower()">
+⚡ 채굴력 업그레이드 (100코인)
+</button>
+
+<button onclick="buyAutoMiner()">
+⛏️ 자동 채굴기 구매 (200코인)
+</button>
+
+<p>
+자동 채굴기 :
+<span id="minerCount">0</span>개
+</p>
+
+</div>
+<button onclick="resetGame()">
+🗑️ 게임 초기화
+</button>
+<script>
+
+let coin = 0;
+let level = 1;
+
+let exp = 0;
+let expMax = 10;
+
+let coinPower = 1;
+
+let autoMineUnlocked = false;
+let autoMinerCount = 0;
+
+function mineCoin(){
+
+    coin += coinPower;
+    exp += coinPower;
+
+    levelCheck();
+
+    updateScreen();
+}
+
+function levelCheck(){
+
+    if(exp >= expMax){
+
+        exp = 0;
+
+        level++;
+
+        coinPower++;
+
+        expMax += 10;
+
+        document.getElementById("message").innerHTML =
+        "🎉 레벨업! Lv." + level;
+    }
+
+    if(coin >= 50 && autoMineUnlocked == false){
+
+        autoMineUnlocked = true;
+
+        document.getElementById("message").innerHTML =
+        "⛏️ 자동 채굴 해금!";
+    }
+}
+
+function buyPower(){
+
+    if(coin >= 100){
+
+        coin -= 100;
+
+        coinPower++;
+
+        document.getElementById("message").innerHTML =
+        "⚡ 채굴력 증가!";
+
+        updateScreen();
+    }
+}
+
+function buyAutoMiner(){
+
+    if(coin >= 200){
+
+        coin -= 200;
+
+        autoMinerCount++;
+
+        document.getElementById("message").innerHTML =
+        "⛏️ 자동채굴기 구매!";
+
+        updateScreen();
+    }
+}
+
+function updateScreen(){
+
+    document.getElementById("coin").innerText = coin;
+
+    document.getElementById("level").innerText = level;
+
+    document.getElementById("expBar").value = exp;
+
+    document.getElementById("expBar").max = expMax;
+
+    document.getElementById("expText").innerText =
+    exp + " / " + expMax;
+
+    document.getElementById("minerCount").innerText =
+    autoMinerCount;
+}
+
+function saveGame(){
+
+    const saveData = {
+
+        coin,
+        level,
+        exp,
+        expMax,
+        coinPower,
+        autoMinerCount,
+        autoMineUnlocked
+
+    };
+
+    localStorage.setItem(
+        "vcoinSave",
+        JSON.stringify(saveData)
+    );
+}
+
+function loadGame(){
+
+    const saveData =
+    localStorage.getItem("vcoinSave");
+
+    if(saveData){
+
+        const data = JSON.parse(saveData);
+
+        coin = data.coin || 0;
+        level = data.level || 1;
+        exp = data.exp || 0;
+        expMax = data.expMax || 10;
+        coinPower = data.coinPower || 1;
+        autoMinerCount = data.autoMinerCount || 0;
+        autoMineUnlocked =
+        data.autoMineUnlocked || false;
+    }
+}
+
+setInterval(function(){
+
+    coin += autoMinerCount;
+
+    updateScreen();
+
+},1000);
+
+setInterval(saveGame,3000);
+
+loadGame()
+function resetGame(){
+
+    if(confirm("정말 게임을 초기화할까요?")){
+
+        localStorage.removeItem("vcoinSave");
+
+        coin = 0;
+        level = 1;
+
+        exp = 0;
+        expMax = 10;
+
+        coinPower = 1;
+
+        autoMineUnlocked = false;
+        autoMinerCount = 0;
+
+        document.getElementById("message").innerHTML =
+        "🗑️ 게임이 초기화되었습니다!";
+
+        updateScreen();
+    }
+};
+updateScreen();
+
+</script>
+
+</body>
+</html>
