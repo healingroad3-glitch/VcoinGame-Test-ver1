@@ -1,184 +1,136 @@
 <!doctype html>
 <html lang=ko>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>V코인 키우기 ver.9</title>
-        <style>
-            body{
-                text-align:center;
-                font-family:sans-serif;
-                background:#f5f5f5;
-                padding:15px;
-                max-width:600px;
-                margin:auto;
-            }
-            h1{
-                color:black;
-            }
-            #coinbtn{
-                width:250px;
-                height:90px;
-                font-size:26px;
-                border:none;
-                border-radius:20px;
-                margin:10px;
-                cursor:pointer;
-            }
-            #coinbtn:active{
-                transform:scale(0.95);
-            }
-            .shopbtn{
-                width:90%;
-                max-width:400px;
-                padding:15px;
-                margin:8px;
-                font-size:18px;
-                border-radius:10px;
-            }
-            #stats{
-                font-size:22px;
-                margin:20px auto;
-                background:white;
-                padding:15px;
-                border-radius:15px;
-                max-width:450px;
-            }
-            #shop{
-                margin-top:20px;
-                background:white;
-                padding:15px;
-                border-radius:15px;
-                max-width:500px;
-                margin-left:auto;
-                margin-right:auto;
-            }
-            #progress{
-                width:90%;
-                max-width:400px;
-                height:30px;
-            }
-            #minerArea{
-                position:relative;
-                width:250px;
-                height:150px;
-                margin:20px auto;
-            }
-            #character{
-                position:absolute;
-                left:40px;
-                top:40px;
-                font-size:60px;
-            }
-            #pickaxe{
-                position:absolute;
-                left:90px;
-                top:40px;
-                font-size:40px;
-                transform-origin:left bottom;
-                animation:mine 0.8s infinite;
-            }
-            #coinAnim{
-                position:absolute;
-                right:20px;
-                top:50px;
-                font-size:40px;
-                animation:coinMove 1s infinite;
-            }
-            #musicPlayerArea button{
-                display:block;
-                width:90%;
-                margin:5px auto;
-            }
-            @keyframes mine{
-                    0%{
-                        transform:rotate(0deg);
-                    }
-                    50%{
-                        transform:rotate(-40deg);
-                    }
-                    100%{
-                        transform:rotate(0deg);
-                    }
-                }
-            @keyframes coinMove{
-                    0%{
-                        transform:translateY(0);
-                    }
-                    50%{
-                        transform:translateY(-10px);
-                    }    
-                    100%{
-                        transform:translateY(0);
-                    }
-                }    
-        </style>
-    </head>
-    <body>
-    <h1>🪙V코인 키우기</h1>
-    <div id="stats">
-        코인 : <span id="coin">0</span><br>
-        레벨 : <span id="level">1</span><br>
-        경험치 :<progress id="progress" value="0" max="10"></progress><br>
-         <p>⚙️자동 채굴기 :<span id="minerCount">0</span>개</p>
-         <p>⛏️수동 채굴기 :<span id="powerCount">0</span></p>
-         <p>🎵구매한 BGM:<span id="musicList">없음</span></p>
-    </div>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"content="width=device-width,initial-scale=1">
+<title>V코인 키우기ver.9</title>
+<style>
+body{text-align:center;
+     font-family:sans-serif;
+     background:#f5f5f5;
+     padding:15px;
+     max-width:600px;
+     margin:auto;}
+h1{color:black;}
+#coinbtn{width:250px;
+         height:90px;
+         font-size:26px;
+         border:none;
+         border-radius:20px;
+         margin:10px;
+         cursor:pointer;}
+#coinbtn:active{transform:scale(0.95);}.shopbtn{width:90%;
+         max-width:400px;
+         padding:15px;
+         margin:8px;
+         font-size:18px;
+         border-radius:10px;}
+#stats{font-size:22px;
+       margin:20px auto;
+       background:white;
+       padding:15px;
+       border-radius:15px;
+       max-width:450px;}
+#shop{margin-top:20px;
+      background:white;
+      padding:15px;
+      border-radius:15px;
+      max-width:500px;
+      margin-left:auto;
+      margin-right:auto;}
+#progress{width:90%;
+          max-width:400px;
+          height:30px;}
+#minerArea{position:relative;
+           width:250px;
+           height:150px;
+           margin:20px auto;}
+#character{position:absolute;
+           left:40px;
+           top:40px;
+           font-size:60px;}
+#pickaxe{position:absolute;
+         left:90px;
+         top:40px;
+         font-size:40px;
+         transform-origin:left bottom;
+         animation:mine 0.8s infinite;
+#coinAnim{position:absolute;
+          right:20px;
+          top:50px;
+          font-size:40px;
+          animation:coinMove 1s infinite;}#musicPlayerArea button{display:block;
+                        width:90%;
+                        margin:5px auto;}
+@keyframes mine{0%{transform:rotate(0deg);}
+50%
+{transform:rotate(-40deg);}
+100%
+{transform:rotate(0deg);}}
 
-    <div id="minerArea">
-    <div id="character">🧑‍🏭</div>
-    <div id="pickaxe">⛏️</div>
-    <div id="coinAnim">🪙</div>
-    </div>
+@keyframes coinMove{0%{transform:translateY(0);}
+50%
+{transform:translateY(-10px);}    
+100%
+{transform:translateY(0);}}    
+</style>
+</head>
+<body>
+<h1>🪙V코인 키우기</h1>
+<div id="stats">     
+코인 : <span id="coin">0</span><br>
+레벨 : <span id="level">1</span><br>
+경험치 :<progress id="progress" value="0" max="10"></progress><br>
+<p>⚙️자동 채굴기 :<span id="minerCount">0</span>개</p>
+<p>⛏️수동 채굴기 :<span id="powerCount">0</span></p>
+<p>🎵구매한 BGM:<span id="musicList">없음</span></p></div>
+<div id="minerArea">
+<div id="character">🧑‍🏭</div>
+<div id="pickaxe">⛏️</div>
+<div id="coinAnim">🪙</div></div>
 
-    <button id="coinbtn"onclick="earncoin()">🪙코인 얻기</button>
-    
-    <p id="message"></p>
-    <div id="shop"style="display:none;">
-        <h2>🏪 상점</h2>
-        <button class="shopbtn" onclick="buypower()">⛏️수동 채굴기 힘 증가(100코인)</button><br>
-        <button class="shopbtn" onclick="buyAutominer()">⚙️자동 채굴기 구매(200코인)</button><br>
-        
-        <div id="musicShop" style="display:none;">
-            <h2>🎵 BGM 상점</h2>
-             <button class="shopbtn" onclick="buyMusic1()">🎵 BGM 1 (5000코인)</button><br>
-             <button class="shopbtn" onclick="buyMusic2()">🎶 BGM 2 (10000코인)</button><br>
-             <button class="shopbtn" onclick="buyMusic3()">🎼 BGM 3 (15000코인)</button><br>
-             <button class="shopbtn" onclick="buyMusic4()">🎹 BGM 4 (20000코인)</button><br>
-             <div id="musicPlayerArea" style="display:none;"></div>
-                <button id="play1"style="display:none;"onclick="BGM1()">🎵BGM 1</button>
-                <button id="play2"style="display:none;"onclick="BGM2()">🎶BGM 2</button>
-                <button id="play3"style="display:none;"onclick="BGM3()">🎼BGM 3</button>
-                <button id="play4"style="display:none;"onclick="BGM4()">🎹BGM 4</button>
-                <div id="musicControl" style="display:none;">
-                    <button onclick="stopBGM()">⏹️ 음악 정지</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<button id="coinbtn"onclick="earncoin()">🪙코인 얻기</button>
+<p id="message"></p>
+<div id="shop"style="display:none;">
+<h2>🏪 상점</h2>
+<button class="shopbtn" onclick="buypower()">⛏️수동 채굴기 힘 증가(100코인)</button><br>
+<button class="shopbtn" onclick="buyAutominer()">⚙️자동 채굴기 구매(200코인)</button><br>
+<div id="musicShop"style="display:none;">
+<h2>🎵 BGM 상점</h2>
+<button class="shopbtn" onclick="buyMusic1()">🎵 BGM 1 (5000코인)</button><br>
+<button class="shopbtn" onclick="buyMusic2()">🎶 BGM 2 (10000코인)</button><br>
+<button class="shopbtn" onclick="buyMusic3()">🎼 BGM 3 (15000코인)</button><br>
+<button class="shopbtn" onclick="buyMusic4()">🎹 BGM 4 (20000코인)</button><br>
+<div id="musicPlayerArea" style="display:none;"></div>
+<button id="play1"style="display:none;"onclick="BGM1()">🎵BGM 1</button>
+<button id="play2"style="display:none;"onclick="BGM2()">🎶BGM 2</button>
+<button id="play3"style="display:none;"onclick="BGM3()">🎼BGM 3</button>
+<button id="play4"style="display:none;"onclick="BGM4()">🎹BGM 4</button>
+<div id="musicControl" style="display:none;">
+<button onclick="stopBGM()">⏹️ 음악 정지</button></div>
+</div>
+</div>
+</div>
     
 <button class="shopbtn" onclick="savegame()">💾게임 저장</button>
 <button class="shopbtn" onclick="resetGame()">🔄게임 초기화</button>
+<script>
+let Coin=0;
+let Level=1;
+let Exp=0;
+let power=1;
+let autominer=0;
+let automineunlock=false;
+let bgm1=false;
+let bgm2=false;
+let bgm3=false;
+let bgm4=false;
 
-    <script>
-        let Coin=0;
-        let Level=1;
-        let Exp=0;
-        let power=1;
-        let autominer=0;
-        let automineunlock=false;
-        let bgm1=false;
-        let bgm2=false;
-        let bgm3=false;
-        let bgm4=false;
+function earncoin(){Coin+=power; Exp+=power;
+levelcheck();
+updateScreen();}
 
-        function earncoin(){
-            Coin+=power;
-            Exp+=power;
-            levelcheck();
-            updateScreen();
-        }
-        function levelcheck(){
+function levelcheck(){
             while(Exp>= Level*10){
                 Exp -= Level*10;
                 Level++;
